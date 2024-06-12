@@ -1,8 +1,9 @@
+// pages/api/support.js
 const sgMail = require('@sendgrid/mail');
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { email, question } = req.body;
+exports.handler = async function(event, context) {
+  if (event.httpMethod === 'POST') {
+    const { email, question } = JSON.parse(event.body);
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -19,12 +20,21 @@ export default async function handler(req, res) {
 
     try {
       await sgMail.send(msg);
-      res.status(200).json({ message: 'Support request sent successfully' });
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Support request sent successfully' }),
+      };
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'An error occurred while sending the support request' });
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ message: 'An error occurred while sending the support request' }),
+      };
     }
   } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ message: 'Method not allowed' }),
+    };
   }
-}
+};

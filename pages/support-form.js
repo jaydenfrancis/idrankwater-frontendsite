@@ -10,15 +10,15 @@ export default function SupportForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await fetch('/api/support', {
+  
+    const res = await fetch('/.netlify/functions/support', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, question }),
     });
-
+  
     if (res.ok) {
       setEmail('');
       setQuestion('');
