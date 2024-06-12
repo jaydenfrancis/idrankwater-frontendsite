@@ -24,7 +24,7 @@ export default function Home() {
               <FontAwesomeIcon icon={faShieldAlt} />
               Privacy Policy
             </a>
-            <a href="/support-form" className="button">
+            <a href="https://forms.gle/bEeoGk6bQAWaBvJq8" className="button">
               <FontAwesomeIcon icon={faEnvelope} />
               Support Form
             </a>
